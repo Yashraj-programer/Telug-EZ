@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Telugu EZ - Read Telugu. Understand Telugu. Score in Telugu.</title>
+  <meta name="description" content="Read Telugu. Understand Telugu. Score in Telugu. An adaptive learning OS for Class 10 Telugu Second Language students." />
+  <meta property="og:title" content="Telugu EZ - Read Telugu. Understand Telugu. Score in Telugu." />
+  <meta property="og:description" content="Read Telugu. Understand Telugu. Score in Telugu. An adaptive learning OS for Class 10 Telugu Second Language students." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Plus Jakarta Sans for UI, Noto Sans Telugu for pristine Telugu typography, JetBrains Mono for stats -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+Telugu:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN (Self-contained styling in one file) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React 18 & ReactDOM 18 CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel for inline JSX execution in one standalone HTML file -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1c1917;
+      background-color: #FAF8F5;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-telugu {
+      font-family: 'Noto Sans Telugu', 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.95;
+      letter-spacing: 0.01em;
+    }
+    .font-mono-numbers {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d6d3d1;
+      border-radius: 9999px;
+    }
+    .surface-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(231, 229, 228, 0.85);
+      box-shadow: 0 1px 3px 0 rgba(28, 25, 23, 0.02), 0 4px 16px -4px rgba(28, 25, 23, 0.04);
+    }
+    .surface-elevated {
+      background: #FFFFFF;
+      border: 1px solid rgba(231, 229, 228, 0.95);
+      box-shadow: 0 4px 6px -1px rgba(28, 25, 23, 0.03), 0 12px 24px -6px rgba(28, 25, 23, 0.06);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF8F5] text-stone-900 selection:bg-amber-200/80">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // --- LESSON 1 DATASET (CLASS 10 TELANGANA TELUGU SECOND LANGUAGE) ---
+    const LESSON_1 = {
+      id: 'telugu-sl-10-lesson-1',
+      title: 'చల్దులారగించుట',
+      class: 10,
+      board: 'Telangana State Board',
+      subject: 'Telugu Second Language (SL)',
+      author: 'బమ్మెర పోతన (శ్రీమదాంధ్ర భాగవతం)',
+      summaryTelugu: 'శ్రీకృష్ణుడు, బలరాముడు మరియు గోపబాలురు పశువులను కాస్తూ యమునాతీరానికి చేరుకుంటారు. ఎండ ఎక్కువై ఆకలి వేసినప్పుడు, కృష్ణుడు అందరినీ పిలిచి తామరపువ్వు రేకుల వలె వృత్తాకారంలో కూర్చోబెట్టి చద్దన్నం (చల్దులు) సంతోషంగా ఆరగిస్తారు.',
+      summaryEnglish: 'Sri Krishna, Balarama, and cowherd friends graze cattle by the Yamuna. Under the hot midday sun, Krishna lovingly invites everyone to sit in concentric circles like lotus petals and relish cold curd rice (chaldulu).',
+      pages: [
+        {
+          pageNumber: 1,
+          title: 'అడవికి ప్రయాణం & ఎండ వేళ',
+          originalText: 'శ్రీకృష్ణుడు, బలరాముడు తమ గోపమిత్రులతో కలిసి పశువుల మందలను తోలుకుని యమునానదీ పరిసరాల్లోని పచ్చిక బయళ్ళకు వెళ్లారు. వేణువులు ఊదుతూ, కొమ్ములు బూరలు పూరిస్తూ, ఆవులను మేపుతూ ఆనందంగా గడిపారు. మధ్యాహ్న సమయానికి ఎండ తీవ్రమైంది. బాలురందరికీ విపరీతమైన ఆకలి వేసింది.',
+          teenglish: 'Krishna, Balaramudu and gopabaaluru drove cows to lush Yamuna pastures playing flutes and horn trumpets. Midday sun heat became severe and all boys became very hungry.',
+          englishMeaning: 'Sri Krishna and Balarama grazed cattle by the Yamuna playing flutes. By noon, the scorching sun brought intense hunger to all the boys.',
+          coreIdea: 'కృష్ణుడు తన మిత్రులతో కలిసి ఆవులను మేపుతూ యమునా తీరానికి చేరడం, మధ్యాహ్నం ఆకలి వేయడం.',
+          keywords: ['యమునా తీరం', 'గోపమిత్రులు', 'వేణువులు', 'ఎండ తీవ్రత', 'ఆకలి'],
+          memoryChain: ['అడవికి ప్రయాణం', 'వేణువుల నాదం', 'ఎండ తీవ్రత', 'గోపబాలురకు ఆకలి'],
+          kindaExplanation: { simpleNote: 'Remember: 1. Place is Yamuna bank. 2. Activity is grazing cows. 3. Trigger is midday heat causing hunger.', quickCheck: 'Why did the boys look for food? (Due to severe midday heat & hunger).' },
+          dontGetItExplanation: { simplifiedTelugu: 'కృష్ణుడు, తన స్నేహితులు ఆవులను మేపడానికి యమునా నది ఒడ్డుకు వెళ్లారు. అక్కడ ఎండ కాసి బాగా ఆకలి వేసింది.', teenglishBreakdown: 'Simple: Krishna & friends went with cows to Yamuna -> hot sun came -> starving!', realLifeAnalogy: 'Like an outdoor picnic after playing soccer in the sun — everyone is starving for tiffin boxes!', examTip: 'In exam, mention: ఎండ తీవ్రత (heat) & ఆకలి (hunger).' },
+          recallQuestions: [
+            { id: 'p1-q1', question: 'గోపబాలురు పశువులను ఎక్కడికి తోలుకుని వెళ్లారు?', options: ['యమునా నదీ తీరానికి', 'గంగా నదీ తీరానికి', 'నగరానికి', 'ఆశ్రమానికి'], correctAnswer: 'యమునా నదీ తీరానికి', explanation: 'కృష్ణుడు తన మిత్రులతో కలిసి యమునా నదీ పరిసరాలకు వెళ్లాడు.' },
+            { id: 'p1-q2', question: 'మధ్యాహ్న సమయానికి గోపబాలురకు ఏమి వేసింది?', options: ['ఆకలి వేసింది', 'నిద్ర వచ్చింది', 'భయం వేసింది', 'దాహం మాత్రమే వేసింది'], correctAnswer: 'ఆకలి వేసింది', explanation: 'ఎండ తీవ్రమవ్వడంతో బాలురందరికీ ఆకలి వేసింది.' }
+          ]
+        },
+        {
+          pageNumber: 2,
+          title: 'చల్దుల మూటలు & తామరపువ్వు అమరిక',
+          originalText: 'ఆకలిని గమనించిన శ్రీకృష్ణుడు తన మిత్రులను చల్లని చెట్ల నీడకు, యమునా నదీ సైకత శ్రేణులకు పిలిచాడు. తమ వెంట తెచ్చుకున్న చల్దుల మూటలను విప్పమన్నాడు. అందరూ కృష్ణుడి చుట్టూ గుండ్రంగా కూర్చున్నారు. కృష్ణుడు మధ్యలో నిలబడి ఉండగా, మిగిలిన బాలురు తామరపువ్వు మధ్యలో ఉన్న కర్ణిక చుట్టూ రేకులు అమరినట్లు వరుసలుగా కూర్చున్నారు. ప్రతి ఒక్కరికీ కృష్ణుడు తన ముందే కూర్చున్నట్లు కనిపించాడు.',
+          teenglish: 'Krishna called friends to cool tree shade on Yamuna banks to open cold rice bundles. Krishna was in center like a lotus seed-pod (karnika), boys sat around like lotus petals (rekulu). Everyone saw Krishna facing them!',
+          englishMeaning: 'Krishna invited companions to shady trees on the Yamuna sands to open their lunch bundles. Krishna stood in the center like a lotus seed-pod, while the boys encircled him like petals.',
+          coreIdea: 'కృష్ణుడు మధ్యలో కర్ణిక వలె ఉండగా, గోపబాలురందరూ తామరపువ్వు రేకుల వలె చుట్టూ కూర్చోవడం.',
+          keywords: ['చల్దుల మూటలు', 'తామరపువ్వు', 'కర్ణిక', 'రేకులు', 'సమానత్వం'],
+          memoryChain: ['చెట్ల నీడకు పిలుపు', 'చల్దుల మూటలు విప్పుట', 'కృష్ణుడు మధ్యలో', 'తామర రేకుల వలె బాలురు'],
+          kindaExplanation: { simpleNote: 'Metaphor: Krishna = Lotus center (కర్ణిక). Gopas = Lotus petals (రేకులు). Shows divine equality.', quickCheck: 'What flower is the seating compared to? (Lotus / తామరపువ్వు).' },
+          dontGetItExplanation: { simplifiedTelugu: 'కృష్ణుడు స్నేహితులను తామర పువ్వు రేకుల్లా చుట్టూ కూర్చోబెట్టాడు. కృష్ణుడు మధ్యలో ఉన్నాడు.', teenglishBreakdown: 'Visual: A giant pink lotus. Krishna is the yellow center. All 50 boys are the petals!', realLifeAnalogy: 'Like a round dinner table where everyone can see the host clearly and nobody feels left behind.', examTip: 'Keywords: "కమల కర్ణిక" & "కమల దళములు" guaranteed marks!' },
+          recallQuestions: [
+            { id: 'p2-q1', question: 'గోపబాలురు కృష్ణుడి చుట్టూ ఏ పువ్వు రేకుల వలె కూర్చున్నారు?', options: ['తామరపువ్వు (కమలము)', 'గులాబీపువ్వు', 'మల్లెపువ్వు', 'సంపెంగపువ్వు'], correctAnswer: 'తామరపువ్వు (కమలము)', explanation: 'కృష్ణుడు కర్ణిక వలె ఉండగా బాలురు తామర రేకుల వలె కూర్చున్నారు.' },
+            { id: 'p2-q2', question: 'గోపబాలురు తెచ్చుకున్న ఆహారాన్ని ఏమంటారు?', options: ['చల్దులు (చద్దన్నం)', 'మిఠాయిలు', 'పండ్లు మాత్రమే', 'రొట్టెలు'], correctAnswer: 'చల్దులు (చద్దన్నం)', explanation: 'పెరుగు అన్నం, ఆవకాయల మూటలను చల్దులు అంటారు.' }
+          ]
+        },
+        {
+          pageNumber: 3,
+          title: 'ఆనంద భోజనం & స్నేహ మాధుర్యం',
+          originalText: 'బాలురందరూ తమ విస్తళ్ళుగా తామర ఆకులు, మోదుగ ఆకులు, చెట్ల బెరళ్ళు అమర్చుకున్నారు. తమ తెచ్చుకున్న పెరుగు అన్నం, ఊరగాయలు, వెన్నను ఒకరికొకరు రుచి చూపించుకున్నారు. ఒకరి ముద్దను మరొకరు తింటూ, కొంటె చేష్టలు చేస్తూ నవ్వుల పువ్వులు పూయించారు. శ్రీకృష్ణుడు వారి ప్రేమతో కూడిన ఆహారాన్ని అమృతం కంటే మిన్నగా ఆరగించాడు.',
+          teenglish: 'Boys used lotus and moduga leaves as plates. Shared curd rice, pickles, butter, tenderly feeding each other morsels with jokes and ringing laughter. Krishna savored it more than heavenly nectar.',
+          englishMeaning: 'Using lotus and moduga leaves as plates, the boys shared curd rice, pickles, and fresh butter, feeding one another with playful banter. Krishna relished it sweeter than ambrosia.',
+          coreIdea: 'స్నేహంతో ఒకరికొకరు ముద్దలు తినిపించుకుంటూ, హాస్యంతో ఆనందంగా చల్దులు ఆరగించడం.',
+          keywords: ['విస్తళ్ళు', 'పెరుగు అన్నం & వెన్న', 'హాస్య సంభాషణలు', 'అమృత భోజనం', 'సమభావం'],
+          memoryChain: ['ఆకులే విస్తళ్ళు', 'ఆవకాయలు, వెన్న', 'ముద్దలు తినిపించుట', 'నవ్వులు & ఆటలు', 'అమృతమైన స్నేహం'],
+          kindaExplanation: { simpleNote: 'Plates: Lotus & Moduga leaves. Food: Curd rice, butter, pickles. Atmosphere: Pure brotherly joy.', quickCheck: 'What did Krishna think of their food? (Sweeter than divine amrutham).' },
+          dontGetItExplanation: { simplifiedTelugu: 'పిల్లలందరూ తామరాకులలో పెరుగు అన్నం తిన్నారు. ఒకరి ముద్ద ఇంకొకరికి పెడుతూ సరదాగా గడిపారు.', teenglishBreakdown: 'All friends opened tiffin boxes together on fresh green leaves, trade snacks, and laugh together.', realLifeAnalogy: 'School lunch break with your best friends sharing lunch boxes!', examTip: 'Social message: "స్నేహంలో హెచ్చుతగ్గులు ఉండవు" (True friendship knows no rich-poor boundary).' },
+          recallQuestions: [
+            { id: 'p3-q1', question: 'గోపబాలురు విస్తళ్ళుగా వేటిని ఉపయోగించారు?', options: ['తామర ఆకులు, మోదుగ ఆకులు', 'వెండి పళ్ళాలు', 'అరటి ఆకులు మాత్రమే', 'చెక్క బల్లలు'], correctAnswer: 'తామర ఆకులు, మోదుగ ఆకులు', explanation: 'అడవిలో దొరికే తామర ఆకులు, మోదుగ ఆకులను విస్తళ్ళుగా చేసుకున్నారు.' },
+            { id: 'p3-q2', question: 'ఈ పాఠం ఇచ్చే ముఖ్య సందేశం ఏమిటి?', options: ['నిజమైన స్నేహంలో హెచ్చుతగ్గులు ఉండవు', 'అడవికి వెళ్లడం మంచిది', 'ఉదయాన్నే అన్నం తినాలి', 'పువ్వులు కోయాలి'], correctAnswer: 'నిజమైన స్నేహంలో హెచ్చుతగ్గులు ఉండవు', explanation: 'శ్రీకృష్ణుడు-గోపబాలుర మధ్య ఉన్నది పవిత్రమైన స్నేహం.' }
+          ]
+        }
+      ],
+      padyams: [
+        {
+          id: 'pad-1',
+          number: 1,
+          title: 'పద్యం 1 — కమల దళముల వలె',
+          meter: 'ఉత్పలమాల',
+          originalPadyam: `రండని ముందట నిలిచి రాముడుఁ గృష్ణుఁడు వేడుకన్ సఖుల్\nదండలఁ జుట్టియుండ నడుమం గమలాసనుఁ డొప్పుమాడ్కి నా\nమండల మధ్యభాగమున మంజులమూర్తి ప్రకాశింపఁగా\nకుండలి పద్మ కర్ణికకుఁ గూడిన పత్రములట్లు తోచినన్.`,
+          simpleMeaning: 'శ్రీకృష్ణుడు, బలరాముడు తమ మిత్రులను "రండి" అని పిలిచారు. బాలురందరూ కృష్ణుడి చుట్టూ గుండ్రంగా కూర్చున్నారు. తామరపువ్వు కర్ణిక (మధ్య భాగం) చుట్టూ సువాసనల రేకులు ఒద్దికగా అమరినట్లు వారు కనిపించారు.',
+          teenglish: 'Krishna and Balarama called friends. Boys sat encircling Krishna like tender petals surrounding the central seed-pod (karnika) of a blossoming lotus.',
+          englishMeaning: 'Krishna and Balarama welcomed friends to sit. The cowherd boys framed radiant Krishna just like delicate petals around a lotus seed-pod.',
+          keywords: ['రండని పిలుపు', 'సఖులు', 'కమలాసనుడు', 'పద్మ కర్ణిక', 'పత్రములు / రేకులు'],
+          memoryChain: ['రండని పిలుపు', 'మండల మధ్యము', 'పద్మ కర్ణిక', 'పత్రములట్లు (రేకులు)'],
+          examMeaning: 'పరీక్ష సూచన: కృష్ణుడు కర్ణికగా, గోపాలురు రేకులుగా కూర్చోవడం అనే ఉపమాలంకారాన్ని రాయాలి.'
+        },
+        {
+          id: 'pad-2',
+          number: 2,
+          title: 'పద్యం 2 — నవ్వులు & చల్దుల విందు',
+          meter: 'చంపకమాల',
+          originalPadyam: `కలకల నవ్వుచున్ సఖుల కైవసమైన మనోజ్ఞ భోజనాల్\nలలితపు మోదుగాకుల దళంబుల నమృతము పంచుచున్ దగన్\nవెలయఁగ నొక్కరొక్కరికి వేడ్కల ముద్దల నిచ్చుచున్ బ్రేమన్\nచలముల నుల్కిపడుచును సంతోషమునన్ దినె బాలురెల్లరున్.`,
+          simpleMeaning: 'గోపబాలురందరూ కిలకిలా నవ్వుకుంటూ, మోదుగ ఆకుల దళాలలో అమృతం లాంటి చల్దులను పంచుకున్నారు. ఒకరికొకరు ప్రేమతో ముద్దలు తినిపించుకుంటూ ఆనందంగా తిన్నారు.',
+          teenglish: 'With ringing laughter, the boys spread food on moduga leaves, feeding each other affectionate morsels and enjoying a meal sweeter than nectar.',
+          englishMeaning: 'Bursting with laughter, youngsters feasted on moduga leaves, lovingly sharing morsels with pure camaraderie.',
+          keywords: ['కలకల నవ్వుచున్', 'మోదుగాకులు', 'అమృతము', 'ముద్దలు ఇచ్చుచున్', 'సంతోషము'],
+          memoryChain: ['కలకల నవ్వులు', 'మోదుగాకుల విస్తళ్ళు', 'ముద్దలు తినిపించుట', 'అమృత చల్దులు'],
+          examMeaning: 'పరీక్ష సూచన: గోపబాలుర నిష్కల్మషమైన స్నేహం, హాస్యం, ఆహార సమభావం గురించి రాయాలి.'
+        }
+      ],
+      kaviParichayam: {
+        kaviName: 'బమ్మెర పోతన (Bammera Pothana)',
+        kaalam: '15వ శతాబ్దం',
+        janmasthalam: 'వరంగల్ (నేటి జనగామ) జిల్లా బమ్మెర గ్రామం',
+        thallidandrulu: 'తల్లి: లక్కమాంబ, తండ్రి: కేసన',
+        rachanala: ['శ్రీమదాంధ్ర భాగవతం', 'వీరభద్ర విజయం', 'భోగినీ దండకం', 'నారాయణ శతకం'],
+        specialIdentity: 'సహజ పండితుడు. గ్రంథాన్ని రాజులకు అంకితమివ్వక శ్రీరామునికే అంకితమిచ్చిన నిస్వార్థ భక్త కవి.',
+        memoryCode: [
+          { label: 'NAME', value: 'బమ్మెర పోతన', teenglish: 'Pothana' },
+          { label: 'PERIOD', value: '15వ శతాబ్దం', teenglish: '15th Century' },
+          { label: 'PLACE', value: 'బమ్మెర గ్రామం (వరంగల్/జనగామ)', teenglish: 'Bammera village' },
+          { label: 'PARENTS', value: 'లక్కమాంబ - కేసన', teenglish: 'Lakkamba & Kesana' },
+          { label: 'WORKS', value: 'శ్రీమదాంధ్ర భాగవతం', teenglish: 'Bhagavatham' },
+          { label: 'TITLE', value: 'సహజ పండితుడు', teenglish: 'Sahaja Panditudu' }
+        ],
+        fullExamAnswer: `కవి పరిచయం:\n• కవి: బమ్మెర పోతన.\n• కాలం: 15వ శతాబ్దం.\n• జన్మస్థలం: వరంగల్ (జనగామ) జిల్లా బమ్మెర గ్రామం.\n• తల్లిదండ్రులు: లక్కమాంబ, కేసన.\n• రచనలు: శ్రీమదాంధ్ర భాగవతం, వీరభద్ర విజయం, భోగినీ దండకం, నారాయణ శతకం.\n• ప్రత్యేకత: "సహజ పండితుడు"గా కీర్తి పొందారు. గ్రంథాన్ని శ్రీరామచంద్రునికే అంకితమిచ్చిన భక్త కవి.`
+      },
+      questions: [
+        {
+          id: 'q-1',
+          questionTelugu: 'శ్రీకృష్ణుడు తన మిత్రులను భోజనానికి ఎందుకు, ఎలా పిలిచాడు?',
+          questionEnglish: 'Why and how did Sri Krishna invite his friends for food?',
+          marks: 4,
+          keywords: ['ఎండ తీవ్రత', 'తీవ్రమైన ఆకలి', 'యమునా తీరం', 'చెట్ల నీడ', 'చల్దుల మూటలు'],
+          skeleton: [
+            '1. నేపథ్యం: గోపబాలురు ఆవులను మేపుతూ అలసిపోయారు.',
+            '2. కారణం: మధ్యాహ్నం ఎండ తీవ్రమై ఆకలి వేసింది.',
+            '3. ఆహ్వానం: కృష్ణుడు యమునా ఒడ్డున చల్లని చెట్ల నీడకు పిలిచాడు.',
+            '4. ముగింపు: వెంట తెచ్చిన చల్దుల మూటలు విప్పి కలిసి తినమన్నాడు.'
+          ],
+          modelAnswer: 'శ్రీకృష్ణుడు, బలరాముడు మరియు గోపబాలురు పశువులను కాస్తూ యమునా తీరానికి చేరారు. మధ్యాహ్న సమయానికి ఎండ తీవ్రమై బాలురందరికీ విపరీతమైన ఆకలి వేసింది. వారి అలసటను గుర్తించిన కృష్ణుడు ప్రేమతో అందరినీ యమునానది ఇసుక తిన్నెలపై ఉన్న చల్లని చెట్ల నీడకు పిలిచాడు. తమతో తెచ్చుకున్న చల్దుల మూటలను విప్పి కలిసి భోజనం చేద్దామని ఆహ్వానించాడు.'
+        },
+        {
+          id: 'q-2',
+          questionTelugu: 'యమునాతీరంలో గోపబాలురు చల్దులు ఆరగించిన విధానాన్ని మీ సొంత మాటల్లో వర్ణించండి.',
+          questionEnglish: 'Describe the scene of boys eating cold rice by Yamuna in your own words.',
+          marks: 8,
+          keywords: ['తామరపువ్వు కర్ణిక', 'తామర రేకులు', 'మోదుగ ఆకులు', 'చద్దన్నం - వెన్న', 'సమభావం'],
+          skeleton: [
+            '1. కూర్చున్న విధానం: కృష్ణుడు కర్ణిక వలె, బాలురు రేకుల వలె కూర్చోవడం.',
+            '2. విస్తళ్ళు: మోదుగ ఆకులు, తామర ఆకులను పళ్ళాలుగా మార్చడం.',
+            '3. పదార్థాలు: చద్దన్నం, పెరుగు, ఆవకాయ, వెన్న మొదలైనవి.',
+            '4. వాతావరణం: ఒకరికొకరు ముద్దలు తినిపించుకుంటూ నవ్వుకోవడం.',
+            '5. ముగింపు: స్నేహ సమభావాన్ని చాటిచెప్పడం.'
+          ],
+          modelAnswer: 'యమునానదీ తీరంలో గోపబాలురు చల్దులు ఆరగించిన సన్నివేశం అత్యంత రమణీయమైనది. కృష్ణుడు మధ్యలో ఉండగా, మిగిలిన బాలురందరూ తామరపువ్వు కర్ణిక చుట్టూ రేకులు అమరినట్లు వృత్తాకారంలో కూర్చున్నారు. ప్రతి ఒక్కరికీ కృష్ణుడు తమ ఎదురుగానే ఉన్నట్లు కనిపించాడు.\n\nవారు తామర, మోదుగ ఆకులను విస్తళ్ళుగా చేసుకున్నారు. పెరుగు అన్నం, ఊరగాయలు, వెన్నను ఒకరికొకరు ప్రేమతో తినిపించుకుంటూ నవ్వుల పువ్వులు పూయించారు. శ్రీకృష్ణుడు వారి ప్రేమ భోజనాన్ని అమృతం కంటే మిన్నగా ఆరగించాడు.'
+        }
+      ]
+    };
+
+    // --- MAIN REACT APP (RUNNING IN SINGLE HTML FILE) ---
+    function App() {
+      const [activeTab, setActiveTab] = useState('home');
+      const [currentPageIdx, setCurrentPageIdx] = useState(0);
+      const [pageRatings, setPageRatings] = useState({ 1: 'got_it' });
+      const [completedPages, setCompletedPages] = useState([1]);
+      const [xp, setXp] = useState(140);
+      const [streak] = useState(3);
+      const [selectedPadyamIdx, setSelectedPadyamIdx] = useState(0);
+      const [recallMode, setRecallMode] = useState(false);
+      const [selectedQuestionIdx, setSelectedQuestionIdx] = useState(0);
+      const [studentAnswer, setStudentAnswer] = useState('');
+      const [answerChecked, setAnswerChecked] = useState(false);
+      const [makeEzText, setMakeEzText] = useState('కుండలి పద్మ కర్ణికకుఁ గూడిన పత్రములట్లు తోచినన్ శ్రీకృష్ణుడు మధ్యలో నిలబడెను.');
+      const [makeEzResult, setMakeEzResult] = useState(null);
+      const [aiModalOpen, setAiModalOpen] = useState(false);
+      const [aiQuestion, setAiQuestion] = useState('');
+      const [aiAnswer, setAiAnswer] = useState(null);
+      const [weakTopics, setWeakTopics] = useState(['తామరపువ్వు కర్ణిక భావం', 'గుణ సంధి సూత్రం']);
+      const [reviewCardFlipped, setReviewCardFlipped] = useState(false);
+      const [emergencyTime, setEmergencyTime] = useState('30m');
+      const [showToast, setShowToast] = useState(null);
+      const [decoderInput, setDecoderInput] = useState('యమునాతీరంలో గోపబాలురు చల్దులు ఆరగించిన విధానాన్ని వర్ణించండి?');
+      const [decoderResult, setDecoderResult] = useState(null);
+
+      const currentPage = LESSON_1.pages[currentPageIdx];
+      const currentPadyam = LESSON_1.padyams[selectedPadyamIdx];
+      const currentQuestion = LESSON_1.questions[selectedQuestionIdx];
+
+      const triggerToast = (msg) => {
+        setShowToast(msg);
+        setTimeout(() => setShowToast(null), 2500);
+      };
+
+      const addXP = (amt) => {
+        setXp((prev) => prev + amt);
+        triggerToast(`+${amt} XP earned! 🎉`);
+      };
+
+      const handleRating = (rating) => {
+        setPageRatings({ ...pageRatings, [currentPage.pageNumber]: rating });
+        if (rating === 'got_it' && !completedPages.includes(currentPage.pageNumber)) {
+          setCompletedPages([...completedPages, currentPage.pageNumber]);
+          addXP(20);
+        } else if (rating === 'kinda') {
+          addXP(10);
+        }
+      };
+
+      const handleMakeEz = () => {
+        setMakeEzResult({
+          original: makeEzText,
+          teenglish: 'Krishna sat in center like a lotus seed-pod (karnika). Gopas sat encircling him like soft petals.',
+          english: 'Sri Krishna stood at the core while the boys sat like blooming petals of a sacred lotus.',
+          coreIdea: 'కృష్ణుడు మధ్యలో కర్ణిక వలె ఉండగా, మిత్రులందరూ రేకుల వలె చుట్టూ కూర్చోవడం.',
+          keywords: ['తామరపువ్వు (Lotus)', 'కర్ణిక (Pod)', 'రేకులు (Petals)', 'సమానత్వం (Equality)'],
+          examMeaning: 'పరీక్షలో తామరపువ్వు ఉపమానం (ఉపమాలంకారం) గురించి తప్పనిసరిగా రాయాలి.'
+        });
+        addXP(10);
+      };
+
+      const handleDecodeQuestion = () => {
+        setDecoderResult({
+          question: decoderInput,
+          whatItIsAsking: 'The examiner wants to know: 1. The circular seating like a lotus, 2. Leaves used as plates (lotus, moduga), 3. Joyful banter and brotherly sharing.',
+          estimatedMarks: decoderInput.includes('వర్ణించండి') ? '8 Marks (Long Answer)' : '4 Marks (Short Answer)',
+          keywordsExpected: ['తామరపువ్వు కర్ణిక (Lotus core)', 'మోదుగ ఆకులు (Moduga leaves)', 'చద్దన్నం (Curd rice)', 'సమభావం (Equality)'],
+          answerBlueprint: [
+            '1. Opening context: Yamuna river bank midday under shady trees.',
+            '2. Seating arrangement: Concentric petals around Krishna as the central pod.',
+            '3. Dining scene: Moduga leaves plates, sharing butter & curd rice, cheerful banter.',
+            '4. Social message: True divine friendship has zero discrimination.'
+          ]
+        });
+        addXP(15);
+      };
+
+      const handleCheckAnswer = () => {
+        setAnswerChecked(true);
+        addXP(25);
+      };
+
+      const handleAskAI = (promptText) => {
+        const query = promptText || aiQuestion;
+        setAiAnswer({
+          query: query,
+          telugu: 'శ్రీకృష్ణుడు మరియు గోపబాలురు యమునా తీరంలో తామరపువ్వు రేకుల వలె కూర్చొని చద్దన్నం ప్రేమతో తిన్నారు.',
+          teenglish: 'Core takeaway: Krishna was at center like lotus pod. All cowherd friends sat in circles like petals and ate curd rice with laugh banter!',
+          english: 'Central theme: Divine companionship & equality. Everyone sat as petals around a lotus, proving friendship knows no boundary.',
+          takeaway: 'Exam trigger: కమల కర్ణిక (Lotus center) & చల్దులు (Curd rice).'
+        });
+        addXP(5);
+      };
+
+      const downloadSingleFile = () => {
+        const htmlContent = document.documentElement.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'telugu-ez-complete.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        triggerToast('Single HTML File downloaded! Double click to run offline.');
+      };
+
+      const overallReadiness = Math.min(100, Math.round(
+        (completedPages.length / LESSON_1.pages.length) * 45 + (answerChecked ? 35 : 15) + 20
+      ));
+
+      return (
+        <div className="min-h-screen flex flex-col font-sans">
+          {/* Toast Notification */}
+          {showToast && (
+            <div className="fixed top-16 right-4 z-50 px-4 py-2 rounded-2xl bg-stone-900 text-white text-xs font-black shadow-2xl animate-fade-in flex items-center gap-2 border border-stone-700">
+              <span>{showToast}</span>
+            </div>
+          )}
+
+          {/* Top Bar */}
+          <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 h-15 flex items-center justify-between">
+            <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => setActiveTab('home')}>
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-500 text-white font-black text-sm flex items-center justify-center font-telugu shadow-xs">
+                తె
+              </div>
+              <span className="font-black text-base tracking-tight text-stone-900">
+                TELUGU <span className="text-amber-600">EZ</span>
+              </span>
+              <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 ml-1 border border-amber-200 hidden sm:inline-block">
+                SINGLE-FILE EDITION
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button
+                onClick={downloadSingleFile}
+                title="Download this entire website as one single standalone HTML file"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-black transition-all cursor-pointer shadow-2xs active:scale-95"
+              >
+                <span>📥 Download .HTML</span>
+              </button>
+
+              <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold">
+                <span>🔥 {streak}d</span>
+              </div>
+
+              <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-800 text-xs font-mono-numbers font-black">
+                <span>{xp} XP</span>
+              </div>
+
+              <button
+                onClick={() => setAiModalOpen(true)}
+                className="px-3.5 py-1.5 rounded-xl bg-stone-900 text-white text-xs font-bold shadow-xs hover:bg-stone-800 transition-all cursor-pointer"
+              >
+                Ask Doubt
+              </button>
+            </div>
+          </header>
+
+          {/* Navigation Bar */}
+          <div className="bg-white border-b border-stone-200 px-4 sm:px-6 py-2 overflow-x-auto">
+            <div className="max-w-5xl mx-auto flex items-center gap-1.5">
+              {[
+                { id: 'home', label: 'Home' },
+                { id: 'learn', label: 'Lesson Flow' },
+                { id: 'make_ez', label: '✨ Make It EZ' },
+                { id: 'padyam', label: 'Padyams' },
+                { id: 'kavi', label: 'Kavi Parichayam' },
+                { id: 'practice', label: 'Answer Rebuild' },
+                { id: 'decoder', label: 'Question Decoder' },
+                { id: 'revise', label: 'Spaced Revise' },
+                { id: 'progress', label: 'Readiness' },
+                { id: 'emergency', label: '⚡ Last-Minute' },
+              ].map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setActiveTab(t.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all whitespace-nowrap cursor-pointer ${
+                    activeTab === t.id ? 'bg-stone-900 text-white shadow-xs' : 'text-stone-600 hover:bg-stone-100'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Main Container */}
+          <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 pt-6 pb-24">
+            {/* 1. HOME SCREEN */}
+            {activeTab === 'home' && (
+              <div className="space-y-6 animate-fade-in">
+                {/* Hero Card */}
+                <div className="surface-elevated rounded-3xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="space-y-2 max-w-md">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full">
+                      TELANGANA CLASS 10 SL • TELUGU EZ
+                    </span>
+                    <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+                      Read Telugu. Understand Telugu. Score High.
+                    </h1>
+                    <p className="text-xs sm:text-sm text-stone-600 font-medium">
+                      Lesson 1: “చల్దులారగించుట” • Lotus seating breakdown, 6 Kavi cards, exam answers & retrieval practice.
+                    </p>
+                    <div className="pt-2 flex flex-wrap items-center gap-2">
+                      <button
+                        onClick={() => setActiveTab('learn')}
+                        className="px-5 py-2.5 rounded-2xl bg-stone-900 text-white font-black text-xs shadow-xs hover:bg-stone-800 transition-all cursor-pointer"
+                      >
+                        START PAGE-BY-PAGE →
+                      </button>
+                      <button
+                        onClick={() => setActiveTab('make_ez')}
+                        className="px-4 py-2.5 rounded-2xl bg-amber-50 text-amber-900 border border-amber-200 font-black text-xs hover:bg-amber-100 transition-all cursor-pointer"
+                      >
+                        ✨ Make It EZ Tool
+                      </button>
+                      <button
+                        onClick={downloadSingleFile}
+                        className="px-4 py-2.5 rounded-2xl bg-emerald-50 text-emerald-900 border border-emerald-200 font-black text-xs hover:bg-emerald-100 transition-all cursor-pointer"
+                      >
+                        📥 Save Single File
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Readiness Gauge */}
+                  <div className="flex flex-col items-center justify-center p-5 bg-stone-50 rounded-2xl border border-stone-200 min-w-[160px]">
+                    <div className="font-mono-numbers text-4xl font-black text-stone-900">{overallReadiness}%</div>
+                    <div className="text-[10px] font-black uppercase tracking-wider text-stone-500 mt-1">EXAM READINESS</div>
+                    <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md mt-1 border border-emerald-200">
+                      Distinction Track
+                    </div>
+                  </div>
+                </div>
+
+                {/* Weak Concepts */}
+                <div className="surface-card rounded-3xl p-5 sm:p-6 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-rose-950">
+                      HIGH-YIELD WEAK CONCEPTS ({weakTopics.length})
+                    </h3>
+                    <button onClick={() => setActiveTab('revise')} className="text-xs font-bold text-rose-600 hover:underline">
+                      Review all
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {weakTopics.map((w, i) => (
+                      <div key={i} className="p-3 rounded-2xl bg-rose-50/70 border border-rose-200 flex items-center justify-between">
+                        <span className="font-telugu text-xs font-bold text-stone-900">{w}</span>
+                        <button onClick={() => setActiveTab('padyam')} className="text-[10px] font-black px-2.5 py-1 rounded bg-white text-rose-700 border border-rose-300">
+                          Drill
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quick Modules Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                  {[
+                    { id: 'learn', title: 'Page-by-Page', desc: 'Reader sanctuary & Teenglish' },
+                    { id: 'padyam', title: 'Padyam Mode', desc: 'Poetic meter & recall blanks' },
+                    { id: 'practice', title: 'Answer Rebuild', desc: 'Skeletons & examiner keywords' },
+                    { id: 'kavi', title: 'Kavi Parichayam', desc: 'Pothana 6 memory cards' }
+                  ].map((m) => (
+                    <div key={m.id} onClick={() => setActiveTab(m.id)} className="surface-card rounded-3xl p-4.5 cursor-pointer hover:border-amber-400 transition-all">
+                      <h4 className="text-sm font-black text-stone-900">{m.title}</h4>
+                      <p className="text-[11px] text-stone-500 mt-1 font-medium">{m.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 2. LESSON FLOW SCREEN */}
+            {activeTab === 'learn' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-card rounded-3xl p-5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-amber-800">PAGE {currentPageIdx + 1} OF {LESSON_1.pages.length}</span>
+                    <h2 className="text-xl font-black text-stone-900 font-telugu mt-0.5">{currentPage.title}</h2>
+                  </div>
+                  <div className="flex gap-1.5">
+                    {LESSON_1.pages.map((p, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentPageIdx(idx)}
+                        className={`h-2.5 rounded-full transition-all ${idx === currentPageIdx ? 'w-8 bg-amber-600' : 'w-4 bg-stone-200'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="surface-elevated rounded-3xl p-6 sm:p-7 space-y-4">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-stone-500 bg-stone-100 px-2 py-0.5 rounded">
+                    ORIGINAL TELUGU TEXT
+                  </span>
+                  <div className="p-6 rounded-2xl bg-[#FFFDF9] border border-stone-200 text-stone-900 font-telugu text-lg sm:text-xl font-medium leading-loose shadow-2xs">
+                    {currentPage.originalText}
+                  </div>
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-4">
+                  <div className="p-4 rounded-2xl bg-sky-50/70 border border-sky-200 space-y-1">
+                    <span className="text-[10px] font-black uppercase text-sky-800">TEENGLISH BREAKDOWN</span>
+                    <p className="text-sm font-medium text-stone-800">{currentPage.teenglish}</p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-1">
+                    <span className="text-[10px] font-black uppercase text-amber-900">CORE EXAM TAKEAWAY</span>
+                    <p className="text-sm font-bold font-telugu text-stone-900">{currentPage.coreIdea}</p>
+                  </div>
+
+                  <div className="pt-3 border-t border-stone-100 space-y-3">
+                    <h4 className="text-xs font-black uppercase tracking-wider text-stone-800">How did this page feel?</h4>
+                    <div className="grid grid-cols-3 gap-2.5">
+                      <button onClick={() => handleRating('got_it')} className="p-3 rounded-2xl border border-emerald-300 bg-emerald-50 text-emerald-950 font-black text-xs hover:bg-emerald-100 transition-all cursor-pointer">
+                        ✅ I GOT IT (+20 XP)
+                      </button>
+                      <button onClick={() => handleRating('kinda')} className="p-3 rounded-2xl border border-amber-300 bg-amber-50 text-amber-950 font-black text-xs hover:bg-amber-100 transition-all cursor-pointer">
+                        ⚠️ KINDA (+10 XP)
+                      </button>
+                      <button onClick={() => handleRating('dont_get_it')} className="p-3 rounded-2xl border border-rose-300 bg-rose-50 text-rose-950 font-black text-xs hover:bg-rose-100 transition-all cursor-pointer">
+                        ❌ DON'T GET IT
+                      </button>
+                    </div>
+
+                    {pageRatings[currentPage.pageNumber] === 'dont_get_it' && (
+                      <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-xs space-y-1 animate-fade-in">
+                        <span className="font-bold text-rose-800">SUPER SIMPLE REAL-LIFE ANALOGY:</span>
+                        <p className="text-stone-700">{currentPage.dontGetItExplanation.realLifeAnalogy}</p>
+                        <div className="font-semibold text-rose-900 pt-1">💡 Exam Tip: {currentPage.dontGetItExplanation.examTip}</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex justify-between">
+                  <button
+                    disabled={currentPageIdx === 0}
+                    onClick={() => setCurrentPageIdx(currentPageIdx - 1)}
+                    className="px-4 py-2 rounded-xl border border-stone-200 text-xs font-bold disabled:opacity-40"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (currentPageIdx < LESSON_1.pages.length - 1) setCurrentPageIdx(currentPageIdx + 1);
+                      else setActiveTab('padyam');
+                    }}
+                    className="px-5 py-2.5 rounded-2xl bg-stone-900 text-white text-xs font-black shadow-xs cursor-pointer"
+                  >
+                    {currentPageIdx < LESSON_1.pages.length - 1 ? 'NEXT PAGE →' : 'GOTO PADYAMS →'}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* 3. MAKE IT EZ SCREEN */}
+            {activeTab === 'make_ez' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-elevated rounded-3xl p-6 sm:p-7 space-y-2 border-amber-200">
+                  <span className="text-[10px] font-black uppercase text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
+                    SIGNATURE TRANSFORMATION ENGINE
+                  </span>
+                  <h2 className="text-2xl font-black text-stone-900">MAKE IT EZ</h2>
+                  <p className="text-xs text-stone-500 font-medium">Transform any tough Telugu sentence into instant Teenglish, simple English, and memory chains.</p>
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-3">
+                  <textarea
+                    value={makeEzText}
+                    onChange={(e) => setMakeEzText(e.target.value)}
+                    rows={3}
+                    className="w-full p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-stone-900 font-telugu text-base font-medium"
+                  />
+                  <div className="flex justify-end">
+                    <button
+                      onClick={handleMakeEz}
+                      className="px-6 py-3 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white font-black text-xs shadow-xs cursor-pointer"
+                    >
+                      ✨ MAKE IT EZ NOW
+                    </button>
+                  </div>
+                </div>
+
+                {makeEzResult && (
+                  <div className="surface-card rounded-3xl p-6 space-y-4 animate-fade-in border-amber-300">
+                    <div className="p-4 rounded-2xl bg-sky-50 border border-sky-200 space-y-1">
+                      <span className="text-[10px] font-black uppercase text-sky-800">TEENGLISH BREAKDOWN</span>
+                      <p className="text-sm font-medium text-stone-800">{makeEzResult.teenglish}</p>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+                      <span className="text-[10px] font-black uppercase text-emerald-800">CORE IDEA</span>
+                      <p className="text-sm font-bold font-telugu text-stone-900">{makeEzResult.coreIdea}</p>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 space-y-1">
+                      <span className="text-[10px] font-black uppercase text-amber-950">EXAM MEANING</span>
+                      <p className="text-xs font-semibold text-stone-800 font-telugu">{makeEzResult.examMeaning}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 4. PADYAMS SCREEN */}
+            {activeTab === 'padyam' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-card rounded-3xl p-5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-amber-800">PADYAM {currentPadyam.number}</span>
+                    <h2 className="text-xl font-black text-stone-900 font-telugu mt-0.5">{currentPadyam.title}</h2>
+                  </div>
+                  <div className="flex gap-2">
+                    {LESSON_1.padyams.map((p, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedPadyamIdx(i)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-black cursor-pointer ${i === selectedPadyamIdx ? 'bg-stone-900 text-white' : 'bg-stone-100 text-stone-600'}`}
+                      >
+                        పద్యం {p.number}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="surface-elevated rounded-3xl p-6 sm:p-7 space-y-4">
+                  <div className="p-6 rounded-2xl bg-[#FFFDF9] border border-stone-200 font-telugu text-lg sm:text-xl font-bold text-stone-900 leading-loose whitespace-pre-line shadow-2xs">
+                    {currentPadyam.originalPadyam}
+                  </div>
+                  <div className="flex justify-between items-center pt-2">
+                    <span className="text-xs font-bold text-stone-400">ఛందస్సు: {currentPadyam.meter}</span>
+                    <button
+                      onClick={() => setRecallMode(!recallMode)}
+                      className="px-3.5 py-1.5 rounded-xl bg-amber-100 text-amber-950 font-black text-xs cursor-pointer"
+                    >
+                      {recallMode ? 'Normal View' : 'Brain Recall Mode'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-3">
+                  <span className="text-[10px] font-black uppercase text-stone-400">SARALA BHAVAM (భావం)</span>
+                  <p className="font-telugu text-base text-stone-800 font-medium leading-relaxed">{currentPadyam.simpleMeaning}</p>
+                  <div className="p-3 rounded-xl bg-amber-50 text-xs font-bold text-amber-900 border border-amber-200">
+                    {currentPadyam.examMeaning}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 5. KAVI PARICHAYAM SCREEN */}
+            {activeTab === 'kavi' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-elevated rounded-3xl p-6 space-y-2 border-purple-200">
+                  <span className="text-[10px] font-black uppercase text-purple-900 bg-purple-100 px-2 py-0.5 rounded">
+                    KAVI PROFILE DOSSIER
+                  </span>
+                  <h2 className="text-2xl font-black text-stone-900 font-telugu">{LESSON_1.kaviParichayam.kaviName}</h2>
+                  <p className="text-xs text-stone-500 font-medium">15వ శతాబ్దం • తెలంగాణ ప్రజా కవి • సహజ పండితుడు</p>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {LESSON_1.kaviParichayam.memoryCode.map((m, i) => (
+                    <div key={i} className="surface-card rounded-2xl p-4 space-y-1">
+                      <span className="text-[10px] font-black uppercase text-purple-800 bg-purple-50 px-1.5 py-0.5 rounded">{m.label}</span>
+                      <div className="text-sm font-black font-telugu text-stone-900 mt-1">{m.value}</div>
+                      <div className="text-[11px] text-stone-400">{m.teenglish}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-3">
+                  <span className="text-[10px] font-black uppercase text-stone-400">FULL 4-MARK BOARD EXAM ANSWER</span>
+                  <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 font-telugu text-sm leading-relaxed whitespace-pre-line font-medium text-stone-800">
+                    {LESSON_1.kaviParichayam.fullExamAnswer}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 6. PRACTICE / ANSWER REBUILD SCREEN */}
+            {activeTab === 'practice' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-card rounded-3xl p-5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-emerald-800">ANSWER SKELETON REBUILD</span>
+                    <h2 className="text-xl font-black text-stone-900 font-telugu mt-0.5">Exam Answer Builder</h2>
+                  </div>
+                  <span className="text-xs font-mono-numbers font-black bg-stone-100 px-2.5 py-1 rounded-lg">
+                    {currentQuestion.marks} Marks
+                  </span>
+                </div>
+
+                <div className="surface-elevated rounded-3xl p-6 space-y-4">
+                  <h3 className="text-base sm:text-lg font-black font-telugu text-stone-900">{currentQuestion.questionTelugu}</h3>
+                  <div className="space-y-1.5">
+                    {currentQuestion.skeleton.map((s, i) => (
+                      <div key={i} className="text-xs font-semibold text-stone-600 font-telugu flex items-start gap-2">
+                        <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-mono-numbers font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{i+1}</span>
+                        <span>{s}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <textarea
+                    value={studentAnswer}
+                    onChange={(e) => setStudentAnswer(e.target.value)}
+                    rows={4}
+                    placeholder="ఇక్కడ మీ సమాధానాన్ని రాయండి..."
+                    className="w-full p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-stone-900 font-telugu text-sm"
+                  />
+
+                  <div className="flex justify-end">
+                    <button
+                      onClick={handleCheckAnswer}
+                      className="px-6 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-xs cursor-pointer"
+                    >
+                      CHECK ANSWER (+25 XP)
+                    </button>
+                  </div>
+
+                  {answerChecked && (
+                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-xs space-y-1 animate-fade-in">
+                      <div className="font-black text-emerald-950">✅ EXCELLENT! 3.5 / 4 Marks Estimate</div>
+                      <p className="text-emerald-800 font-telugu">Main idea captured accurately with key triggers: ఎండ తీవ్రత & ఆకలి.</p>
+                      <div className="p-3 bg-white rounded-xl border border-emerald-200 mt-2">
+                        <strong className="text-stone-900">Standard Model Answer:</strong>
+                        <p className="text-stone-700 font-telugu mt-1">{currentQuestion.modelAnswer}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* 7. QUESTION DECODER SCREEN */}
+            {activeTab === 'decoder' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-elevated rounded-3xl p-6 sm:p-7 space-y-2 border-indigo-200">
+                  <span className="text-[10px] font-black uppercase text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded">
+                    EXAM TRIGGER ANALYZER
+                  </span>
+                  <h2 className="text-2xl font-black text-stone-900">QUESTION DECODER</h2>
+                  <p className="text-xs text-stone-500 font-medium">Decode any Telugu exam question into what the examiner is secretly looking for.</p>
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-3">
+                  <input
+                    type="text"
+                    value={decoderInput}
+                    onChange={(e) => setDecoderInput(e.target.value)}
+                    className="w-full p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-stone-900 font-telugu text-base font-medium"
+                    placeholder="Enter or paste Telugu question..."
+                  />
+                  <div className="flex justify-end">
+                    <button
+                      onClick={handleDecodeQuestion}
+                      className="px-6 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-xs cursor-pointer"
+                    >
+                      🎯 DECODE QUESTION (+15 XP)
+                    </button>
+                  </div>
+                </div>
+
+                {decoderResult && (
+                  <div className="surface-card rounded-3xl p-6 space-y-4 animate-fade-in border-indigo-300">
+                    <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 space-y-1">
+                      <span className="text-[10px] font-black uppercase text-indigo-900">WHAT THE EXAMINER ACTUALLY WANTS</span>
+                      <p className="text-sm font-medium text-stone-800">{decoderResult.whatItIsAsking}</p>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+                      <span className="text-[10px] font-black uppercase text-emerald-900">MUST-INCLUDE KEYWORDS</span>
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {decoderResult.keywordsExpected.map((k, i) => (
+                          <span key={i} className="px-2.5 py-1 bg-white border border-emerald-300 rounded-lg text-xs font-bold text-emerald-900">
+                            {k}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
+                      <span className="text-[10px] font-black uppercase text-stone-600">GUARANTEED SCORING SKELETON</span>
+                      <div className="space-y-1 text-xs font-medium text-stone-700">
+                        {decoderResult.answerBlueprint.map((b, i) => (
+                          <div key={i}>{b}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 8. SPACED REVISION SCREEN */}
+            {activeTab === 'revise' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-card rounded-3xl p-5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-teal-800">AUTOMATED QUEUE</span>
+                    <h2 className="text-xl font-black text-stone-900 mt-0.5">Spaced Repetition Flashcards</h2>
+                  </div>
+                  <span className="text-xs font-bold text-stone-500">Today: 4 due</span>
+                </div>
+
+                <div
+                  onClick={() => setReviewCardFlipped(!reviewCardFlipped)}
+                  className="surface-elevated rounded-3xl p-8 text-center cursor-pointer min-h-[160px] flex flex-col items-center justify-center space-y-2 select-none border-teal-200 hover:border-teal-400 transition-all"
+                >
+                  <span className="text-[10px] font-black uppercase text-stone-400">TAP TO FLIP FLASHCARD</span>
+                  <h3 className="text-xl font-black text-stone-900 font-telugu">
+                    {reviewCardFlipped ? 'చద్దన్నము (రాత్రి తోడుపెట్టిన పెరుగు అన్నం)' : 'చల్ది అంటే ఏమిటి?'}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <button onClick={() => { setReviewCardFlipped(false); triggerToast('Saved for later review!'); }} className="p-4 rounded-2xl border border-rose-200 bg-rose-50 text-rose-900 text-xs font-black cursor-pointer">
+                    Still Weak (Review Later)
+                  </button>
+                  <button onClick={() => { setReviewCardFlipped(false); addXP(15); }} className="p-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black cursor-pointer">
+                    Mastered! (+15 XP)
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* 9. PROGRESS / READINESS SCREEN */}
+            {activeTab === 'progress' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-card rounded-3xl p-6 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-stone-400">EXAM READINESS</span>
+                    <h2 className="text-2xl font-black text-stone-900">Overall Readiness: {overallReadiness}%</h2>
+                    <p className="text-xs text-stone-500">Lesson 1: “చల్దులారగించుట” competency metrics.</p>
+                  </div>
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-3">
+                  {[
+                    { name: 'Understanding (భావ అవగాహన)', val: 85 },
+                    { name: 'Padyams (పద్యాలు & భావాలు)', val: 75 },
+                    { name: 'Answer Rebuild (సమాధాన రచన)', val: 80 },
+                    { name: 'Kavi Parichayam (కవి పరిచయం)', val: 95 },
+                    { name: 'Active Recall (స్మృతి బలం)', val: 70 },
+                  ].map((item, idx) => (
+                    <div key={idx} className="space-y-1">
+                      <div className="flex justify-between text-xs font-bold text-stone-700">
+                        <span>{item.name}</span>
+                        <span className="font-mono-numbers">{item.val}%</span>
+                      </div>
+                      <div className="w-full h-2 rounded-full bg-stone-100 overflow-hidden">
+                        <div className="h-full bg-amber-500 rounded-full" style={{ width: `${item.val}%` }}></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 10. LAST-MINUTE EMERGENCY MODE */}
+            {activeTab === 'emergency' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="surface-elevated rounded-3xl p-6 bg-stone-900 text-white space-y-2">
+                  <span className="text-[10px] font-black uppercase text-rose-300">DETERMINISTIC EXAM CRAM</span>
+                  <h2 className="text-2xl font-black">LAST-MINUTE EMERGENCY MODE</h2>
+                  <div className="flex gap-2 pt-2">
+                    {['15m', '30m', '1h'].map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => setEmergencyTime(t)}
+                        className={`px-3 py-1 rounded-xl text-xs font-black uppercase cursor-pointer ${emergencyTime === t ? 'bg-white text-stone-900' : 'bg-white/20 text-white'}`}
+                      >
+                        {t} Cram
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="surface-card rounded-3xl p-6 space-y-3 font-telugu">
+                  <h3 className="text-base font-black text-stone-900">హై-ఈల్డ్ పాయింట్స్ ({emergencyTime}):</h3>
+                  <div className="space-y-2 text-sm text-stone-800">
+                    <div className="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                      <strong>1. కవి పరిచయం (4M):</strong> బమ్మెర పోతన, 15వ శతాబ్దం, వరంగల్ బమ్మెర, భాగవతం, సహజ పండితుడు.
+                    </div>
+                    <div className="p-3 rounded-xl bg-sky-50 border border-sky-200">
+                      <strong>2. పద్య భావం (4M):</strong> కృష్ణుడు కర్ణిక వలె, గోపబాలురు తామర రేకుల వలె కూర్చున్నారు.
+                    </div>
+                    <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                      <strong>3. ముఖ్య అర్థాలు (2M):</strong> చల్ది = చద్దన్నము; కర్ణిక = తామరపువ్వు మధ్య భాగం.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </main>
+
+          {/* AI Doubt Modal */}
+          {aiModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fade-in">
+              <div className="surface-elevated rounded-3xl p-6 max-w-lg w-full space-y-4">
+                <div className="flex justify-between items-center border-b border-stone-100 pb-2">
+                  <h3 className="text-sm font-black uppercase text-stone-900">TELUGU EZ CONTEXT TUTOR</h3>
+                  <button onClick={() => { setAiModalOpen(false); setAiAnswer(null); }} className="text-stone-400 font-bold cursor-pointer hover:text-stone-600">✕</button>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {['Explain in simple Teenglish', 'Give me a real-life analogy', 'Why is this important for 4 marks?'].map((chip, i) => (
+                    <button key={i} onClick={() => handleAskAI(chip)} className="px-2.5 py-1 rounded-lg bg-stone-100 text-stone-700 text-xs font-semibold cursor-pointer hover:bg-stone-200">
+                      {chip}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={aiQuestion}
+                    onChange={(e) => setAiQuestion(e.target.value)}
+                    placeholder="Ask doubt..."
+                    className="flex-1 p-3 rounded-xl bg-stone-50 border border-stone-200 text-sm font-medium"
+                  />
+                  <button onClick={() => handleAskAI()} className="px-4 py-3 rounded-xl bg-stone-900 text-white font-black text-xs cursor-pointer hover:bg-stone-800">
+                    Ask
+                  </button>
+                </div>
+
+                {aiAnswer && (
+                  <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs space-y-1.5 animate-fade-in">
+                    <div className="font-bold text-amber-950 font-telugu">{aiAnswer.telugu}</div>
+                    <div className="text-stone-700 font-medium">{aiAnswer.teenglish}</div>
+                    <div className="font-black text-emerald-800 pt-1">🎯 {aiAnswer.takeaway}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Standalone Download Floating Button */}
+          <div className="fixed bottom-4 right-4 z-40">
+            <button
+              onClick={downloadSingleFile}
+              className="px-4 py-2.5 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-xs font-black shadow-xl flex items-center gap-2 cursor-pointer transition-all active:scale-95 border border-stone-700"
+            >
+              <span>📥 Save as Single HTML</span>
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "Telugu EZ",
+  "description": "Read Telugu. Understand Telugu. Score in Telugu. An adaptive learning OS for Class 10 Telugu Second Language students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
